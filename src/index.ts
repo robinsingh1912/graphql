@@ -68,13 +68,13 @@ const books = [
   {
     id: 'book-1',
     title: 'The Awakening',
-    author: 'Kate Chopin',
+    author: 'Robin',
     library: 'downtown',
   },
   {
     id: 'book-2',
     title: 'City of Glass',
-    author: 'Paul Auster',
+    author: 'Gaurav',
     library: 'riverside',
   },
 ];
@@ -88,6 +88,13 @@ const resolvers = {
     },
     authors: () => authors,
     users: () => users,
+  },
+  Library: {
+    books(parent) {
+      // Filter the hardcoded array of books to only include
+      // books that are located at the correct branch
+      return books.filter((book) => book.library === parent.name);
+    },
   },
   Mutation: {
     addBook: (_, { title, author, library = 'unknown' }) => {
