@@ -8,13 +8,13 @@ const typeDefs = `#graphql
    books: [Book!]
  }
   type Book {
+    id:ID!
     title: String!
     author: Author!
   }
 
   type Author {
     name: String!
-    books: [Book!]
   }
 
   type User {
@@ -46,23 +46,36 @@ const libraries = [
 
 const users = [
   {
-    id: '1',
+    id: 'user-1',
     name: 'John Doe',
   },
   {
-    id: '2',
+    id: 'user-2',
     name: 'Jane Smith',
+  },
+];
+
+const authors = [
+  {
+    name: 'Robin',
+  },
+  {
+    name: 'Gaurav',
   },
 ];
 
 const books = [
   {
+    id: 'book-1',
     title: 'The Awakening',
     author: 'Kate Chopin',
+    library: 'downtown',
   },
   {
+    id: 'book-2',
     title: 'City of Glass',
     author: 'Paul Auster',
+    library: 'riverside',
   },
 ];
 
@@ -73,13 +86,16 @@ const resolvers = {
     user: (parent, args, contextValue, info) => {
       return users.find((user) => user.id === args.id);
     },
+    authors: () => authors,
     users: () => users,
   },
   Mutation: {
-    addBook: (_, { title, author }) => {
+    addBook: (_, { title, author, library = 'unknown' }) => {
       const newBook = {
+        id: Date.now().toString(),
         title,
         author,
+        library,
       };
       books.push(newBook);
       return newBook;
