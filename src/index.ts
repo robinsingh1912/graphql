@@ -31,7 +31,8 @@ const typeDefs = `#graphql
   }
 
   type Mutation {
-   addBook(title: String!, author: String): Book
+   addBook(title: String!, author: String!, library:String): Book,
+   updateBook(id: ID!, title: String, author: String, library: String): Book
 }
 `;
 
@@ -91,9 +92,13 @@ const resolvers = {
   },
   Library: {
     books(parent) {
-      // Filter the hardcoded array of books to only include
-      // books that are located at the correct branch
       return books.filter((book) => book.library === parent.name);
+    },
+  },
+  Book: {
+    author(parent) {
+      const author = authors.find((author) => author.name === parent.author);
+      return author ? { name: author.name } : { name: 'Unknown Author' };
     },
   },
   Mutation: {
@@ -106,6 +111,25 @@ const resolvers = {
       };
       books.push(newBook);
       return newBook;
+    },
+    updateBook: (_, { id, title, author, library }) => {
+      const bookIndex = books.findIndex((book) => book.id === id);
+      if (bookIndex === -1) {
+        throw new Error('Book not found');
+      }
+      // Update the specified fields if provided
+      if (title) {
+        books[bookIndex].title = title;
+      }
+      if (author) {
+        books[bookIndex].author = author;
+      }
+      if (library) {
+        books[bookIndex].library = library;
+      }
+
+      // Return the updated book
+      return books[bookIndex];
     },
   },
 };
