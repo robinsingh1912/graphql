@@ -14,7 +14,7 @@ const typeDefs = `#graphql
 
   type Author {
     name: String!
-    books: [Book!]!
+    books: [Book!]
   }
 
   type User {
@@ -24,9 +24,10 @@ const typeDefs = `#graphql
   
   type Query {
     libraries: [Library!]
-    books: [Book!]!
+    books: [Book!]
     authors: [Author!]
     user(id: ID!): User
+    users: [User]  
   }
 
   type Mutation {
@@ -36,10 +37,10 @@ const typeDefs = `#graphql
 
 const libraries = [
   {
-    branch: 'downtown',
+    name: 'downtown',
   },
   {
-    branch: 'riverside',
+    name: 'riverside',
   },
 ];
 
@@ -58,12 +59,10 @@ const books = [
   {
     title: 'The Awakening',
     author: 'Kate Chopin',
-    branch: 'riverside',
   },
   {
     title: 'City of Glass',
     author: 'Paul Auster',
-    branch: 'downtown',
   },
 ];
 
@@ -74,28 +73,16 @@ const resolvers = {
     user: (parent, args, contextValue, info) => {
       return users.find((user) => user.id === args.id);
     },
+    users: () => users,
   },
   Mutation: {
     addBook: (_, { title, author }) => {
       const newBook = {
         title,
         author,
-        branch: 'unknown', // Assuming 'unknown' branch for the newly added book
       };
       books.push(newBook);
       return newBook;
-    },
-  },
-  Library: {
-    books(parent) {
-      return books.filter((book) => book.branch === parent.branch);
-    },
-  },
-  Book: {
-    author(parent) {
-      return {
-        name: parent.author,
-      };
     },
   },
 };
