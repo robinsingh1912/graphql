@@ -1,8 +1,10 @@
 [
   {
-    "name": "downtown"
+    "name": "downtown",
+    "id": "library1"
   },
   {
-    "name": "riverside"
+    "name": "riverside",
+    "id": "library2"
   }
 ]

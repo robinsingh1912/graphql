@@ -1,9 +1,11 @@
 const typeDefs = `#graphql
 
   type Library {
+    id:ID!
     name: String!
-    books: [Book!]
+    books: [Book!]!
   }
+  
   type Book {
     id:ID!
     title: String!
