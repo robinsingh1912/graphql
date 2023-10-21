@@ -1,0 +1,14 @@
+[
+  {
+    "id": "book-1",
+    "title": "The Awakening",
+    "author": "Robin",
+    "library": "downtown"
+  },
+  {
+    "id": "book-2",
+    "title": "City of Glass",
+    "author": "Gaurav",
+    "library": "riverside"
+  }
+]
