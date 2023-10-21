@@ -1,9 +1,9 @@
 const typeDefs = `#graphql
 
- type Library {
-   name: String!
-   books: [Book!]
- }
+  type Library {
+    name: String!
+    books: [Book!]
+  }
   type Book {
     id:ID!
     title: String!
@@ -28,8 +28,8 @@ const typeDefs = `#graphql
   }
 
   type Mutation {
-   addBook(title: String!, author: String!, library:String): Book,
-   updateBook(id: ID!, title: String, author: String, library: String): Book
+    addBook(title: String!, author: String!, library:String): Book,
+    updateBook(id: ID!, title: String, author: String, library: String): Book
 }
 `;
 
