@@ -1,7 +1,5 @@
-import { books } from '../data/index.js';
-
 const Mutation = {
-  addBook: (_parent, { title, author, library = 'unknown' }) => {
+  addBook: (_parent, { title, author, library = 'unknown' }, { books }) => {
     const newBook = {
       id: Date.now().toString(),
       title,
@@ -11,7 +9,7 @@ const Mutation = {
     books.push(newBook);
     return newBook;
   },
-  updateBook: (_parent, { id, title, author, library }) => {
+  updateBook: (_parent, { id, title, author, library }, { books }) => {
     const bookIndex = books.findIndex((book) => book.id === id);
     if (bookIndex === -1) {
       throw new Error('Book not found');
