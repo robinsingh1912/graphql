@@ -1,8 +1,6 @@
-import { books } from '../data/index.js';
-
 const Library = {
-  books(parent) {
-    return books.filter((book) => book.library === parent.name);
+  books({ name }, _args, { books }) {
+    return books.filter((book) => book.library === name);
   },
 };
 
