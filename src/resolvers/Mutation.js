@@ -9,11 +9,13 @@ const Mutation = {
     books.push(newBook);
     return newBook;
   },
-  updateBook: (_parent, { id, title, author, library }, { books }) => {
+  updateBook: (_parent, { id, bookDetails }, { books }) => {
     const bookIndex = books.findIndex((book) => book.id === id);
     if (bookIndex === -1) {
       throw new Error('Book not found');
     }
+
+    const { title, author, library } = bookDetails;
     // Update the specified fields if provided
     if (title) {
       books[bookIndex].title = title;
