@@ -89,17 +89,30 @@ mutation {
 
 - Update an existing book.
 
-`updateBook(id: ID!, title: String, author: String, library: String): Book`
+`updateBook(id: ID!, bookDetails: BookDetails!): Book`
 
 Example Mutation:
 
 ```graphql
-mutation {
-  updateBook(id: "book-1", title: "Updated Book Title") {
+mutation UpdateBook($updateBookId: ID!, $bookDetails: BookDetails) {
+  updateBook(id: $updateBookId, bookDetails: $bookDetails) {
     id
     title
-    author
-    library
+    author {
+      name
+    }
+  }
+}
+```
+
+Variables:
+
+```json
+{
+  "updateBookId": "book-1",
+  "bookDetails": {
+    "title": "new title",
+    "author": "Gaurav"
   }
 }
 ```
